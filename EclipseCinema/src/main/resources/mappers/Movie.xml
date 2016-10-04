@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cinema.moviedao.MovieDao">
+
+		<sql id="movieCommon">
+			SELECT m_num, m_grade, m_title, m_director
+			FROM movie_board
+			<trim prefix="WHERE" prefixOverrides="AND">
+				<if test="search=='m_title'">
+<![CDATA[ m_title LIKE '%'|| #{keyword} ||'%' ]]>
+				</if>
+				<if test="search=='m_director'">
+<![CDATA[ AND m_director LIKE '%'|| #{keyword} ||'%' ]]>
+				</if>
+				<if test="search=='m_grade'">
+<![CDATA[ AND m_grade LIKE '%'|| #{keyword} ||'%' ]]>
+				</if>
+			</trim>
+		</sql>
+
+		<!-- 게시물 기본 조회 -->
+		<!-- <select id="movieList" parameterType="com.cinema.movievo.MovieVO" 
+			resultType="com.cinema.movievo.MovieVO"> select m_num, m_grade, m_title, 
+			m_director, to_char(m_date,'YYYY-MM-DD') as m_date from movie_board </select> -->
+
+		<!-- 게시물 (전체)목록 조회 -->
+		<select id="movieList" parameterType="movie" resultType="movie">
+			<!-- Movie - movieList -->
+			SELECT m_num, m_grade, m_title, m_director
+			FROM
+			(SELECT list.*,
+			ROWNUM AS RNUM
+			FROM (
+			<include refid="movieCommon"></include>
+			<choose>
+				<when test="order_by=='m_num'">
+					ORDER BY m_num
+				</when>
+				<when test="order_by=='m_date'">
+					ORDER BY m_date
+				</when>
+			</choose>
+			<choose>
+				<when test="order_sc=='ASC'">
+					ASC
+				</when>
+				<when test="order_sc=='DESC'">
+					DESC
+				</when>
+			</choose>
+			) list
+			)
+			<where>
+				<if test="start_row != null and start_row != ''">
+					<if test="end_row != null and end_row != ''">
+						RNUM BETWEEN #{start_row} AND #{end_row}
+					</if>
+				</if>
+			</where>
+		</select>
+
+		<!-- 전체 레코드 건수 -->
+		<select id="movieListCnt" parameterType="movie" resultType="int">
+			<!-- Movie - movieListCnt -->
+			SELECT NVL(count(1), 0) FROM
+			( SELECT list.*, ROWNUM AS RNUM
+			FROM (
+			<include refid="movieCommon"></include>
+			ORDER BY m_num desc
+			) list
+			)
+		</select>
+
+
+		<!-- 게시물 상세 조회 -->
+		<select id="movieDetail" parameterType="int" resultType="movie">
+			<!-- Movie - movieDetail -->
+			SELECT
+			m_num, m_title, m_director, m_star, m_support,
+			m_runningtime, m_releasedate, m_summary, m_grade, m_country, m_genre,
+			m_theaternumber, m_score, m_file,
+			TO_CHAR(m_date,'YYYY-MM-DD HH24:MI:SS') AS m_date
+			FROM movie_board
+			WHERE m_num = #{m_num}
+		</select>
+		
+
+		<!-- 게시물 등록 -->
+		<insert id="movieInsert" parameterType="movie">
+			<!-- Movie - insertMovie -->
+			<selectKey keyProperty="m_num" resultType="int" order="BEFORE">
+				select movie_board_seq.nextval from dual
+			</selectKey>
+			INSERT INTO movie_board(m_num, m_title, m_director, m_star,
+			m_support, m_runningtime, m_releasedate, m_summary, m_grade,
+			m_country, m_genre, m_theaternumber, m_score, <if test="m_file != null and m_file != ''">m_file</if>)
+			VALUES(#{m_num}, #{m_title}, #{m_director}, #{m_star},
+			#{m_support}, #{m_runningtime}, #{m_releasedate}, #{m_summary},
+			#{m_grade}, #{m_country}, #{m_genre}, #{m_theaternumber}, #{m_score}
+			<if test="m_file != null and m_file != ''">, #{m_file}</if>)
+		</insert>
+
+		<!-- 해당 번호의 비밀번호 확인 -->
+		<!-- <select id="pwdConfirm" parameterType="com.cinema.movievo.MovieVO" 
+			resultType="int"> /* Movie - pwdConfirm */ SELECT NVL(( SELECT 1 FROM movie_board 
+			WHERE m_num = #{m_num} AND m_pwd = #{m_pwd} ), 0) as state FROM dual </select> -->
+
+		<!-- 게시물 수정 -->
+		<update id="movieUpdate" parameterType="movie">
+			<!-- Movie - movieUpdate -->
+			UPDATE movie_board
+			SET m_title = #{m_title}
+			, m_grade = #{m_grade}
+			,
+			m_summary = #{m_summary}
+			, m_director = #{m_director}
+			, m_star = #{m_star}
+			, m_support = #{m_support}
+			,
+			m_runningtime = #{m_runningtime}
+			, m_releasedate = #{m_releasedate}
+			,
+			m_country = #{m_country}
+			, m_genre = #{m_genre}
+			, m_theaternumber =
+			#{m_theaternumber}
+			, m_score = #{m_score}			
+			<if test="m_file != ''">
+			,m_file = #{m_file}
+			</if>
+			, m_date = sysdate
+			<!-- <if test="m_pwd != null and m_pwd != ''"> , m_pwd = #{m_pwd} </if> -->
+			WHERE m_num = #{m_num}
+		</update>
+
+		<!-- 게시물 삭제 -->
+		<delete id="movieDelete" parameterType="movie">
+			<!-- Movie - movieDelete -->
+			DELETE FROM movie_board
+			WHERE m_num = #{m_num}
+		</delete>
+		
+		<!--
+		<select id="movieCRUD" parameterType="movie" resultType="movie" statementType="CALLABLE">
+		 {
+		 call MOVIE_CRUD(#{m_num, mode=IN}, #{m_grade, mode=IN}, #{m_title, mode=IN},
+		#{m_summary, mode=IN}
+		 , #{m_file, mode=IN}, #{result_cd, mode=OUT},
+		#{result_msg, mode=OUT})
+		 }
+		</select>
+		-->
+
+	</mapper>

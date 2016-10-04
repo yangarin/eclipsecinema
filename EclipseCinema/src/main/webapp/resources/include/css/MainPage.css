@@ -1,0 +1,34 @@
+@CHARSET "UTF-8";
+
+#main_nav {
+	background-color: cyan;
+	width: 500px;
+	height: 60px;
+	margin: 0 auto;
+}
+#main_nav p {
+	text-align: center;
+	padding-top: 17px;
+}
+
+#adminMovieList {
+	background-color: cyan;
+	width: 950px;
+	height: 600px;
+	margin: 0 auto;
+	margin-top: 24px;
+}
+
+#main_video {
+	width: 640px;
+	height: 360px;
+	margin: 0 auto;
+	margin-top: 16px;
+}
+
+#main_ad {
+	width: 600px;
+	height: 600px;
+	margin: 0 auto;
+	margin-top: 32px;
+}
