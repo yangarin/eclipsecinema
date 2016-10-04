@@ -78,7 +78,7 @@
 			SELECT
 			m_num, m_title, m_director, m_star, m_support,
 			m_runningtime, m_releasedate, m_summary, m_grade, m_country, m_genre,
-			m_theaternumber, m_score, m_file,
+			m_score, m_file,
 			TO_CHAR(m_date,'YYYY-MM-DD HH24:MI:SS') AS m_date
 			FROM movie_board
 			WHERE m_num = #{m_num}
@@ -93,10 +93,10 @@
 			</selectKey>
 			INSERT INTO movie_board(m_num, m_title, m_director, m_star,
 			m_support, m_runningtime, m_releasedate, m_summary, m_grade,
-			m_country, m_genre, m_theaternumber, m_score, <if test="m_file != null and m_file != ''">m_file</if>)
+			m_country, m_genre, m_score, <if test="m_file != null and m_file != ''">m_file</if>)
 			VALUES(#{m_num}, #{m_title}, #{m_director}, #{m_star},
 			#{m_support}, #{m_runningtime}, #{m_releasedate}, #{m_summary},
-			#{m_grade}, #{m_country}, #{m_genre}, #{m_theaternumber}, #{m_score}
+			#{m_grade}, #{m_country}, #{m_genre}, #{m_score}
 			<if test="m_file != null and m_file != ''">, #{m_file}</if>)
 		</insert>
 
@@ -122,8 +122,6 @@
 			,
 			m_country = #{m_country}
 			, m_genre = #{m_genre}
-			, m_theaternumber =
-			#{m_theaternumber}
 			, m_score = #{m_score}			
 			<if test="m_file != ''">
 			,m_file = #{m_file}

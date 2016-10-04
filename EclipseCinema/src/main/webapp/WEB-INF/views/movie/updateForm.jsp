@@ -97,12 +97,7 @@
 				<td>장르</td>
 				<td><input type="text" name="m_genre" id="m_genre"
 					value="${updateData.m_genre}" /></td>
-			</tr>
-			<tr>
-				<td>상영관번호</td>
-				<td><input type="text" name="m_theaternumber"
-					id="m_theaternumber" value="${updateData.m_theaternumber}" /></td>
-			</tr>
+			</tr>			
 			<tr>
 				<td>평점</td>
 				<td><input type="text" name="m_score" id="m_score"

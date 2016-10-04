@@ -110,12 +110,7 @@
 					<tr>
 						<td>영화 장르</td>
 						<td><input type="text" name="m_genre" id="m_genre"></td>
-					</tr>
-					<tr>
-						<td>영화 상영관번호</td>
-						<td><input type="text" name="m_theaternumber"
-							id="m_theaternumber"></td>
-					</tr>
+					</tr>					
 					<tr>
 						<td>영화 평점</td>
 						<td><input type="text" name="m_score" id="m_score"></td>

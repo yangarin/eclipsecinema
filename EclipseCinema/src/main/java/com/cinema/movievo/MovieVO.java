@@ -16,7 +16,6 @@ public class MovieVO extends PagingVO {
 	private String m_grade = ""; // 상영등급
 	private String m_country = ""; // 나라
 	private String m_genre = ""; // 장르
-	private String m_theaternumber = ""; // 상영관번호
 	private String m_date = ""; // 등록일
 	private String m_score = ""; //평점
 	
@@ -100,12 +99,6 @@ public class MovieVO extends PagingVO {
 	public void setM_genre(String m_genre) {
 		this.m_genre = m_genre;
 	}
-	public String getM_theaternumber() {
-		return m_theaternumber;
-	}
-	public void setM_theaternumber(String m_theaternumber) {
-		this.m_theaternumber = m_theaternumber;
-	}
 	public String getM_date() {
 		return m_date;
 	}
@@ -159,6 +152,7 @@ public class MovieVO extends PagingVO {
 	}
 	public void setC_menu(String c_menu) {
 		this.c_menu = c_menu;
-	}		
+	}
+		
 		
 }
