@@ -285,4 +285,16 @@ public class MovieController {
 		return listData;
 	}
 	
+	
+	
+	
+	
+	// 영화관 안내 폼 불러오기
+	@RequestMapping(value = "/infoForm", method = RequestMethod.GET)
+	public String InfoForm() {
+
+		logger.info("infoForm 호출 성공");
+		return "movie/infoForm";
+	}
+	
 }

@@ -3,7 +3,7 @@
 <mapper namespace="com.cinema.moviedao.MovieDao">
 
 		<sql id="movieCommon">
-			SELECT m_num, m_grade, m_title, m_director
+			SELECT m_num, m_grade, m_title, m_director, m_file, m_date
 			FROM movie_board
 			<trim prefix="WHERE" prefixOverrides="AND">
 				<if test="search=='m_title'">
@@ -26,7 +26,7 @@
 		<!-- 게시물 (전체)목록 조회 -->
 		<select id="movieList" parameterType="movie" resultType="movie">
 			<!-- Movie - movieList -->
-			SELECT m_num, m_grade, m_title, m_director
+			SELECT m_num, m_grade, m_title, m_director, m_file, TO_CHAR(m_date,'YYYY-MM-DD HH24:MI:SS') AS m_date
 			FROM
 			(SELECT list.*,
 			ROWNUM AS RNUM
@@ -37,7 +37,7 @@
 					ORDER BY m_num
 				</when>
 				<when test="order_by=='m_date'">
-					ORDER BY m_date
+					ORDER BY m_director
 				</when>
 			</choose>
 			<choose>
@@ -78,7 +78,7 @@
 			SELECT
 			m_num, m_title, m_director, m_star, m_support,
 			m_runningtime, m_releasedate, m_summary, m_grade, m_country, m_genre,
-			m_score, m_file,
+			m_score, m_file, m_preview,
 			TO_CHAR(m_date,'YYYY-MM-DD HH24:MI:SS') AS m_date
 			FROM movie_board
 			WHERE m_num = #{m_num}
@@ -93,11 +93,13 @@
 			</selectKey>
 			INSERT INTO movie_board(m_num, m_title, m_director, m_star,
 			m_support, m_runningtime, m_releasedate, m_summary, m_grade,
-			m_country, m_genre, m_score, <if test="m_file != null and m_file != ''">m_file</if>)
+			m_country, m_genre, m_score, <if test="m_file != null and m_file != ''">m_file</if>, m_preview
+			)
 			VALUES(#{m_num}, #{m_title}, #{m_director}, #{m_star},
 			#{m_support}, #{m_runningtime}, #{m_releasedate}, #{m_summary},
-			#{m_grade}, #{m_country}, #{m_genre}, #{m_score}
-			<if test="m_file != null and m_file != ''">, #{m_file}</if>)
+			#{m_grade}, #{m_country}, #{m_genre}, #{m_score},
+			<if test="m_file != null and m_file != ''">#{m_file}</if>, #{m_preview}
+			)
 		</insert>
 
 		<!-- 해당 번호의 비밀번호 확인 -->
@@ -126,6 +128,7 @@
 			<if test="m_file != ''">
 			,m_file = #{m_file}
 			</if>
+			,m_preview = #{m_preview}
 			, m_date = sysdate
 			<!-- <if test="m_pwd != null and m_pwd != ''"> , m_pwd = #{m_pwd} </if> -->
 			WHERE m_num = #{m_num}

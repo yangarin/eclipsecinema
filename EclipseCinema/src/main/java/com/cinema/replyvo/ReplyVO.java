@@ -2,8 +2,8 @@ package com.cinema.replyvo;
 
 public class ReplyVO {
 
-	private int r_num =0; //댓글번호
-	private int m_num =0; //게시판 글번호
+	private int r_num = 0; //댓글번호
+	private int m_num = 0; //게시판 글번호
 	private String r_name =""; //댓글 작성자 아이디
 	private String r_content =""; //댓글 내용
 	private String r_date =""; //댓글 작성일

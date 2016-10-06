@@ -37,6 +37,7 @@
 		where
 		r_num = #{r_num}
 	</update>
+	
 	<delete id="replyDelete" parameterType="reply">
 		<!-- Reply - replyDelete -->
 		delete from movie_reply where r_num = #{r_num}

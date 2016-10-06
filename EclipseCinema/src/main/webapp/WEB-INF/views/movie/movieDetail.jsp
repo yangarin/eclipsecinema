@@ -26,7 +26,8 @@
 				height : "200px"
 			});
 		}
-
+		
+		
 		/* 수정 버튼 클릭 시 처리 이벤트 */
 		$("#updateForm").click(function() {
 			/* $("#pwdChk").show();
@@ -96,10 +97,11 @@
 </head>
 <body>
 
-	<
+	
 	<div id="boardTit">
 		<h3>영화 상세</h3>
 	</div>
+	
 	<form name="f_data" id="f_data" method="POST">
 		<input type="hidden" name="m_num" id="m_num" value="${detail.m_num}" />
 	</form>
@@ -153,9 +155,17 @@
 					<td colspan="3">${detail.m_director}</td>
 				</tr>
 				<tr>
-					<td class="ac vm">첨부파일 이미지</td>
+					<td class="ac vm">포스터 이미지</td>
 					<td colspan="3"><img id="fileImage"></td>
 				</tr>
+				<tr>
+					<td class="ac vm">예고편 동영상</td>
+					<td colspan="3">
+					<iframe width="640" height="360"
+				src="${detail.m_preview}" frameborder="0"
+				allowfullscreen></iframe>
+					</td>
+				</tr>				
 			</tbody>
 		</table>
 	</div>

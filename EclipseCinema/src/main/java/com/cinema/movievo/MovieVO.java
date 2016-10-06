@@ -18,6 +18,7 @@ public class MovieVO extends PagingVO {
 	private String m_genre = ""; // 장르
 	private String m_date = ""; // 등록일
 	private String m_score = ""; //평점
+	private String m_preview = ""; //예고편 동영상 URL
 	
 	//조건검색시 사용할 필드
 	private String search = "";
@@ -27,12 +28,18 @@ public class MovieVO extends PagingVO {
 	private String order_by;
 	private String order_sc;
 	
-	// 파일 업로드를 위한 속성
+	// 포스터 사진 업로드를 위한 속성
 	private MultipartFile file; // 첨부파일
 	private String m_file = ""; // 실제서버에 저장한 파일명
-	private String c_menu = "";
+		
+		
 	
-	
+	public String getM_preview() {
+		return m_preview;
+	}
+	public void setM_preview(String m_preview) {
+		this.m_preview = m_preview;
+	}
 	public int getM_num() {
 		return m_num;
 	}
@@ -146,13 +153,6 @@ public class MovieVO extends PagingVO {
 	}
 	public void setM_file(String m_file) {
 		this.m_file = m_file;
-	}
-	public String getC_menu() {
-		return c_menu;
-	}
-	public void setC_menu(String c_menu) {
-		this.c_menu = c_menu;
-	}
-		
+	}		
 		
 }

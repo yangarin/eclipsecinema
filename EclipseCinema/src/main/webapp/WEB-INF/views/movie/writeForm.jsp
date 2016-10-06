@@ -116,8 +116,12 @@
 						<td><input type="text" name="m_score" id="m_score"></td>
 					</tr>					
 					<tr>
-						<td class="ac">첨부파일</td>
+						<td class="ac">포스터첨부파일</td>
 						<td><input type="file" name="file" id="file"></td>
+					</tr>
+					<tr>
+						<td>예고편 URL</td>
+						<td><input type="text" name="m_preview" id="m_preview"></td>
 					</tr>
 				</table>
 			</form>

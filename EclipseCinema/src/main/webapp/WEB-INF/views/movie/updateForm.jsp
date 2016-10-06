@@ -102,7 +102,17 @@
 				<td>평점</td>
 				<td><input type="text" name="m_score" id="m_score"
 					value="${updateData.m_score}" /></td>
-			</tr>			
+			</tr>
+			<tr>
+				<td>포스터사진</td>
+				<td><input type="text" name="m_file" id="m_file"
+					value="${updateData.m_file}" /></td>
+			</tr>
+			<tr>
+				<td>예고편 URL</td>
+				<td><input type="text" name="m_preview" id="m_preview"
+					value="${updateData.m_preview}" /></td>
+			</tr>		
 		</table>
 	</form>
 	<div id="movieBut">
